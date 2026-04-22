@@ -1,850 +1,221 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-<head>    
-    <meta name="description" content="موقع MMS News الإخباري - بوابة إخبارية شاملة يقدمها مصطفى راضي، تغطية لأحدث الأخبار العاجلة والرياضية والتقنية.">
-    <meta name="keywords" content="MMS News, مصطفى راضي, أخبار عاجلة, رياضة, اقتصاد, تقنية, Giza news, MMS News">
-    <meta name="author" content="Mostafa Radi">
-    <link rel="canonical" href="https://mustafarady-cmd.github.io/-mms-news-/">
-
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MMS News | بوابة الأخبار الشاملة</title>
+    <title>MMS News | بوابة الأخبار الذكية</title>
+    
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
     <style>
         :root {
-            --primary: #c41e3a;
-            --primary-dark: #9a1830;
-            --secondary: #1a1a2e;
-            --accent: #e94560;
-            --bg: #f8f9fa;
-            --card-bg: #ffffff;
-            --text: #1a1a2e;
-            --text-secondary: #6c757d;
-            --border: #e9ecef;
-            --shadow: 0 4px 20px rgba(0,0,0,0.08);
-            --shadow-hover: 0 8px 30px rgba(0,0,0,0.15);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --primary: #c41e3a; --primary-dark: #9a1830; --secondary: #1a1a2e;
+            --bg: #f8f9fa; --card-bg: #ffffff; --text: #1a1a2e;
+            --text-secondary: #6c757d; --border: #e9ecef; --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --transition: all 0.3s ease;
         }
 
         [data-theme="dark"] {
-            --bg: #0f0f1a;
-            --card-bg: #1a1a2e;
-            --text: #e8e8f0;
-            --text-secondary: #a0a0b8;
-            --border: #2a2a3e;
-            --shadow: 0 4px 20px rgba(0,0,0,0.3);
-            --shadow-hover: 0 8px 30px rgba(0,0,0,0.4);
+            --bg: #0f0f1a; --card-bg: #1a1a2e; --text: #e8e8f0;
+            --text-secondary: #a0a0b8; --border: #2a2a3e;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; transition: var(--transition); overflow-x: hidden; }
 
-        body {
-            font-family: 'Tajawal', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.7;
-            transition: var(--transition);
-            overflow-x: hidden;
-        }
-
-        /* Breaking News Ticker */
-        .ticker-wrap {
-            background: var(--primary);
-            color: white;
-            padding: 8px 0;
-            overflow: hidden;
-            position: relative;
-            z-index: 1000;
-        }
-
-        .ticker-content {
-            display: flex;
-            animation: ticker 30s linear infinite;
-            white-space: nowrap;
-        }
-
-        .ticker-item {
-            padding: 0 40px;
-            font-weight: 700;
-            font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .ticker-item::before {
-            content: 'عاجل';
-            background: white;
-            color: var(--primary);
-            padding: 2px 10px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: 800;
-        }
-
-        @keyframes ticker {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
+        /* Weather & Top Bar */
+        .top-bar { background: var(--secondary); color: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; flex-wrap: wrap; gap: 10px; }
+        .weather-select { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 4px 10px; border-radius: 8px; cursor: pointer; outline: none; }
+        .weather-select option { color: #000; }
 
         /* Header */
-        .main-header {
-            background: var(--card-bg);
-            box-shadow: var(--shadow);
-            position: sticky;
-            top: 0;
-            z-index: 999;
-            transition: var(--transition);
-        }
-
-        .header-top {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-        }
-
-        .logo-icon {
-            width: 50px;
-            height: 50px;
-            background: var(--primary);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-            font-weight: 900;
-            transform: rotate(-5deg);
-            transition: var(--transition);
-        }
-
-        .logo:hover .logo-icon {
-            transform: rotate(0deg) scale(1.1);
-        }
-
-        .logo-text { display: flex; flex-direction: column; }
-
-        .logo-name {
-            font-size: 2rem;
-            font-weight: 900;
-            color: var(--primary);
-            line-height: 1;
-        }
-
-        .logo-tagline {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
-
-        .header-actions {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-
-        .theme-toggle, .search-btn {
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            border: 2px solid var(--border);
-            background: transparent;
-            color: var(--text);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            transition: var(--transition);
-        }
-
-        .theme-toggle:hover, .search-btn:hover {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-            transform: rotate(15deg);
-        }
-
-        /* Navigation */
-        .main-nav {
-            border-top: 1px solid var(--border);
-            background: var(--card-bg);
-        }
-
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 30px;
-            display: flex;
-            justify-content: center;
-            gap: 5px;
-        }
-
-        .nav-link {
-            padding: 15px 20px;
-            text-decoration: none;
-            color: var(--text-secondary);
-            font-weight: 600;
-            font-size: 0.95rem;
-            position: relative;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 3px;
-            background: var(--primary);
-            transition: var(--transition);
-            transform: translateX(-50%);
-            border-radius: 3px 3px 0 0;
-        }
-
-        .nav-link:hover, .nav-link.active { color: var(--primary); }
-
-        .nav-link:hover::after, .nav-link.active::after { width: 80%; }
-
-        /* Hero Section */
-        .hero-section {
-            max-width: 1400px;
-            margin: 30px auto;
-            padding: 0 30px;
-            display: grid;
-            grid-template-columns: 1.5fr 1fr;
-            gap: 20px;
-        }
-
-        .hero-main {
-            position: relative;
-            border-radius: 20px;
-            overflow: hidden;
-            height: 500px;
-            cursor: pointer;
-            box-shadow: var(--shadow);
-        }
-
-        .hero-main img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: var(--transition);
-        }
-
-        .hero-main:hover img { transform: scale(1.05); }
-
-        .hero-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 40px;
-            background: linear-gradient(transparent, rgba(0,0,0,0.9));
-            color: white;
-        }
-
-        .hero-category {
-            display: inline-block;
-            background: var(--primary);
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-        }
-
-        .hero-title {
-            font-size: 2rem;
-            font-weight: 800;
-            line-height: 1.3;
-            margin-bottom: 10px;
-        }
-
-        .hero-meta {
-            display: flex;
-            gap: 20px;
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-
-        .hero-side {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .side-card {
-            position: relative;
-            border-radius: 16px;
-            overflow: hidden;
-            height: 155px;
-            cursor: pointer;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-        }
-
-        .side-card:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .side-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: var(--transition);
-        }
-
-        .side-card:hover img { transform: scale(1.1); }
-
-        .side-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 20px;
-            background: linear-gradient(transparent, rgba(0,0,0,0.85));
-            color: white;
-        }
-
-        .side-title {
-            font-size: 1rem;
-            font-weight: 700;
-            line-height: 1.4;
-        }
-
-        /* Section Styles */
-        .section {
-            max-width: 1400px;
-            margin: 50px auto;
-            padding: 0 30px;
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 3px solid var(--border);
-            position: relative;
-        }
-
-        .section-header::after {
-            content: '';
-            position: absolute;
-            bottom: -3px;
-            right: 0;
-            width: 100px;
-            height: 3px;
-            background: var(--primary);
-            border-radius: 3px;
-        }
-
-        .section-title {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--text);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .section-title i { color: var(--primary); }
-
-        .view-all {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            transition: var(--transition);
-        }
-
-        .view-all:hover { gap: 10px; }
-
-        /* News Grid */
-        .news-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 25px;
-        }
-
-        .news-card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            cursor: pointer;
-            border: 1px solid var(--border);
-        }
-
-        .news-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .card-image {
-            position: relative;
-            height: 200px;
-            overflow: hidden;
-        }
-
-        .card-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: var(--transition);
-        }
-
-        .news-card:hover .card-image img { transform: scale(1.1); }
-
-        .card-category {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: var(--primary);
-            color: white;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            z-index: 2;
-        }
-
-        .card-content { padding: 20px; }
-
-        .card-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            line-height: 1.5;
-            margin-bottom: 12px;
-            color: var(--text);
-            transition: var(--transition);
-        }
-
-        .news-card:hover .card-title { color: var(--primary); }
-
-        .card-excerpt {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
-
-        .card-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-        }
-
-        .card-author {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .author-avatar {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background: var(--primary);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 0.8rem;
-        }
-
-        /* Source Box */
-        .source-box {
-            margin: 15px 0;
-            padding: 12px;
-            background: var(--bg);
-            border-radius: 10px;
-            border-right: 3px solid var(--primary);
-        }
-
-        .source-badge {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .source-badge strong { color: var(--primary); }
-
-        .publisher-badge {
-            font-size: 0.9rem;
-            color: var(--text);
-            font-weight: 600;
-            margin-top: 5px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .publisher-badge strong { color: var(--accent); }
-
-        /* Read More Button */
-        .read-more-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--primary);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 700;
-            transition: var(--transition);
-            margin-top: 10px;
-        }
-
-        .read-more-btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-        }
-
-        /* Featured Section */
-        .featured-section {
-            background: var(--card-bg);
-            padding: 40px 0;
-            margin: 50px 0;
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .featured-grid {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 30px;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-        }
-
-        .featured-item {
-            text-align: center;
-            padding: 20px;
-            border-radius: 16px;
-            transition: var(--transition);
-            cursor: pointer;
-        }
-
-        .featured-item:hover {
-            background: var(--bg);
-            transform: translateY(-5px);
-        }
-
-        .featured-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 15px;
-            font-size: 1.5rem;
-            color: white;
-        }
-
-        .featured-item:nth-child(1) .featured-icon { background: #e74c3c; }
-        .featured-item:nth-child(2) .featured-icon { background: #3498db; }
-        .featured-item:nth-child(3) .featured-icon { background: #2ecc71; }
-        .featured-item:nth-child(4) .featured-icon { background: #f39c12; }
-
-        .featured-title {
-            font-weight: 700;
-            font-size: 1.1rem;
-            margin-bottom: 5px;
-        }
-
-        .featured-count { color: var(--text-secondary); font-size: 0.9rem; }
-
-        /* Footer */
-        .main-footer {
-            background: var(--secondary);
-            color: white;
-            padding: 60px 0 30px;
-            margin-top: 80px;
-        }
-
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 30px;
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 40px;
-        }
-
-        .footer-brand .logo-name {
-            color: white;
-            margin-bottom: 15px;
-        }
-
-        .footer-desc {
-            color: rgba(255,255,255,0.7);
-            line-height: 1.8;
-            margin-bottom: 20px;
-        }
-
-        .social-links { display: flex; gap: 10px; }
-
-        .social-link {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .social-link:hover {
-            background: var(--primary);
-            transform: translateY(-3px);
-        }
-
-        .footer-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: white;
-        }
-
-        .footer-links { list-style: none; }
-
-        .footer-links li { margin-bottom: 12px; }
-
-        .footer-links a {
-            color: rgba(255,255,255,0.7);
-            text-decoration: none;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .footer-links a:hover {
-            color: white;
-            padding-right: 5px;
-        }
-
-        .footer-bottom {
-            max-width: 1400px;
-            margin: 40px auto 0;
-            padding: 20px 30px 0;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            text-align: center;
-            color: rgba(255,255,255,0.5);
-            font-size: 0.9rem;
-        }
-
-        /* Mobile Menu */
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--text);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .animate-in { animation: fadeInUp 0.6s ease forwards; }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .hero-section { grid-template-columns: 1fr; }
-            .hero-main { height: 400px; }
-            .featured-grid { grid-template-columns: repeat(2, 1fr); }
-            .footer-content { grid-template-columns: 1fr 1fr; }
-        }
-
-        @media (max-width: 768px) {
-            .mobile-menu-btn { display: block; }
-            .nav-container {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: var(--card-bg);
-                flex-direction: column;
-                padding: 20px;
-                box-shadow: var(--shadow);
-            }
-            .nav-container.active { display: flex; }
-            .header-top { padding: 10px 20px; }
-            .hero-section, .section { padding: 0 15px; }
-            .hero-main { height: 300px; }
-            .hero-title { font-size: 1.3rem; }
-            .news-grid { grid-template-columns: 1fr; }
-            .featured-grid { grid-template-columns: 1fr; }
-            .footer-content { grid-template-columns: 1fr; text-align: center; }
-            .social-links { justify-content: center; }
-        }
-
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg); }
-        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--primary-dark); }
+        .main-header { background: var(--card-bg); box-shadow: var(--shadow); position: sticky; top: 0; z-index: 1000; }
+        .header-content { max-width: 1400px; margin: 0 auto; padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .logo-box { background: var(--primary); color: white; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 12px; font-weight: 900; font-size: 1.3rem; transform: rotate(-5deg); box-shadow: 0 4px 10px rgba(196, 30, 58, 0.3); }
+        .logo-name { font-size: 2.1rem; font-weight: 900; color: var(--primary); letter-spacing: -1px; }
+
+        /* Sections */
+        .container { max-width: 1400px; margin: 40px auto; padding: 0 25px; }
+        .section-header { display: flex; align-items: center; gap: 15px; margin-bottom: 30px; border-bottom: 2px solid var(--border); padding-bottom: 15px; }
+        .section-header h2 { font-size: 1.6rem; font-weight: 800; color: var(--text); }
+        .section-header i { color: var(--primary); }
+
+        .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; margin-bottom: 50px; }
+        .news-card { background: var(--card-bg); border-radius: 20px; overflow: hidden; box-shadow: var(--shadow); cursor: pointer; transition: var(--transition); border: 1px solid var(--border); position: relative; }
+        .news-card:hover { transform: translateY(-8px); }
+        .card-img-wrap { height: 210px; overflow: hidden; }
+        .card-img { width: 100%; height: 100%; object-fit: cover; }
+        .card-tag { position: absolute; top: 15px; right: 15px; background: var(--primary); color: white; padding: 5px 15px; border-radius: 50px; font-size: 0.75rem; font-weight: 800; }
+        .card-body { padding: 25px; }
+        .card-meta { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-secondary); margin-top: 15px; border-top: 1px solid var(--border); padding-top: 15px; }
+
+        /* Modal */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 2000; backdrop-filter: blur(5px); }
+        .progress-container { position: sticky; top: 0; width: 100%; height: 6px; background: rgba(255,255,255,0.1); z-index: 2200; }
+        #progressBar { height: 100%; background: var(--primary); width: 0%; transition: width 0.1s; }
+        .modal-content { max-width: 850px; margin: 30px auto; background: var(--card-bg); border-radius: 25px; max-height: 90vh; overflow-y: auto; position: relative; }
+        .modal-body { padding: 40px; }
+        .close-btn { position: fixed; top: 20px; left: 20px; width: 40px; height: 40px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; border: none; z-index: 2300; }
     </style>
 </head>
-<body>
-    <div class="ticker-wrap">
-        <div class="ticker-content" id="ticker">
-            <div class="ticker-item">جارٍ تحميل الأخبار العاجلة...</div>
-            <div class="ticker-item">جارٍ تحميل الأخبار العاجلة...</div>
-            <div class="ticker-item">جارٍ تحميل الأخبار العاجلة...</div>
-            <div class="ticker-item">جارٍ تحميل الأخبار العاجلة...</div>
-            <div class="ticker-item">جارٍ تحميل الأخبار العاجلة...</div>
-            <div class="ticker-item">جارٍ تحميل الأخبار العاجلة...</div>
-        </div>
+<body data-theme="light">
+
+<div class="top-bar">
+    <div id="weatherDisplay"><i class="fas fa-spinner fa-spin"></i> جاري جلب الطقس المباشر...</div>
+    <div>
+        <select class="weather-select" id="govSelect" onchange="fetchLiveWeather()">
+            <option value="30.04,31.23">القاهرة</option>
+            <option value="30.01,31.21">الجيزة</option>
+            <option value="31.20,29.91">الإسكندرية</option>
+            <option value="24.08,32.89">أسوان</option>
+            <option value="27.18,31.18">أسيوط</option>
+            <option value="31.25,32.28">بورسعيد</option>
+        </select>
+        <span id="liveDate" style="margin-right: 15px; font-weight: bold;"></span>
     </div>
+</div>
 
-    <header class="main-header">
-        <div class="header-top">
-            <a href="#" class="logo">
-                <div class="logo-icon">إ</div>
-                <div class="logo-text">
-                    <span class="logo-name">MMS News</span>
-                    <span class="logo-tagline">بوابة الأخبار الشاملة</span>
+<header class="main-header">
+    <div class="header-content">
+        <a href="#" class="logo">
+            <div class="logo-box">MMS</div>
+            <span class="logo-name">News</span>
+        </a>
+        <button onclick="toggleTheme()" style="background:none; border:none; cursor:pointer; font-size:1.3rem; color:var(--text);"><i class="fas fa-adjust"></i></button>
+    </div>
+</header>
+
+<main class="container">
+    <section>
+        <div class="section-header"><i class="fas fa-user-md"></i><h2>النبض الطبي</h2></div>
+        <div class="news-grid" id="medicalGrid"></div>
+    </section>
+
+    <section>
+        <div class="section-header"><i class="fas fa-bolt"></i><h2>آخر المستجدات</h2></div>
+        <div class="news-grid" id="breakingGrid"></div>
+    </section>
+</main>
+
+<div id="articleModal" class="modal">
+    <button class="close-btn" onclick="closeModal()">&times;</button>
+    <div class="modal-content">
+        <div class="progress-container"><div id="progressBar"></div></div>
+        <div id="modalBody" class="modal-body"></div>
+    </div>
+</div>
+
+<script>
+    // 1. تحديث التاريخ تلقائياً
+    function updateLiveDate() {
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('liveDate').innerText = new Date().toLocaleDateString('ar-EG', options);
+    }
+
+    // 2. جلب الطقس الحي (مربوط بالأقمار الصناعية)
+    async function fetchLiveWeather() {
+        const coords = document.getElementById('govSelect').value.split(',');
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=${coords[0]}&longitude=${coords[1]}&current_weather=true`;
+        
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+            const temp = Math.round(data.current_weather.temperature);
+            document.getElementById('weatherDisplay').innerHTML = `<i class="fas fa-thermometer-half"></i> درجة الحرارة الآن: ${temp}°م`;
+        } catch (e) {
+            document.getElementById('weatherDisplay').innerText = "تعذر جلب الطقس";
+        }
+    }
+
+    // 3. نظام الأخبار الذكي
+    let newsList = [];
+    async function fetchNews() {
+        const RSS_API = 'https://api.rss2json.com/v1/api.json?rss_url=https://feeds.bbci.co.uk/arabic/rss.xml';
+        try {
+            const res = await fetch(RSS_API);
+            const data = await res.json();
+            newsList = data.items.map(item => ({
+                id: Math.random().toString(36).substr(2, 9),
+                title: item.title,
+                desc: item.description,
+                date: new Date(item.pubDate),
+                img: item.enclosure.link || 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800',
+                cat: detectCat(item.title + item.description)
+            })).sort((a,b) => b.date - a.date);
+            render();
+        } catch (e) { console.error("News Error"); }
+    }
+
+    function detectCat(t) {
+        if (/طب|صحة|علاج|مستشفى|جراحة|تمريض/.test(t)) return 'med';
+        return 'news';
+    }
+
+    function formatTime(d) {
+        const diff = Math.floor((new Date() - d) / 1000 / 3600);
+        return diff < 1 ? "الآن" : diff < 24 ? `منذ ${diff} ساعة` : "أمس";
+    }
+
+    function render() {
+        const medGrid = document.getElementById('medicalGrid');
+        const newsGrid = document.getElementById('breakingGrid');
+        
+        const meds = newsList.filter(n => n.cat === 'med').slice(0, 3);
+        const news = newsList.filter(n => n.cat === 'news').slice(0, 6);
+
+        medGrid.innerHTML = meds.map(n => createCard(n)).join('');
+        newsGrid.innerHTML = news.map(n => createCard(n)).join('');
+    }
+
+    function createCard(n) {
+        return `
+            <div class="news-card" onclick="openModal('${n.id}')">
+                <span class="card-tag">${n.cat === 'med' ? 'طبي' : 'عاجل'}</span>
+                <div class="card-img-wrap"><img src="${n.img}" class="card-img"></div>
+                <div class="card-body">
+                    <h3>${n.title}</h3>
+                    <div class="card-meta"><span><i class="far fa-clock"></i> ${formatTime(n.date)}</span></div>
                 </div>
-            </a>
+            </div>
+        `;
+    }
 
-            <div class="header-actions">
-                <button class="search-btn" onclick="toggleSearch()">
-                    <i class="fas fa-search"></i>
-                </button>
-                <button class="theme-toggle" onclick="toggleTheme()">
-                    <i class="fas fa-moon" id="themeIcon"></i>
-                </button>
-                <button class="mobile-menu-btn" onclick="toggleMenu()">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </div>
-        </div>
+    function openModal(id) {
+        const n = newsList.find(x => x.id === id);
+        const modal = document.getElementById('articleModal');
+        document.getElementById('modalBody').innerHTML = `
+            <img src="${n.img}" style="width:100%; border-radius:20px; margin-bottom:20px;">
+            <h1>${n.title}</h1>
+            <p style="margin:20px 0; color:var(--text-secondary); font-size:1.2rem;">${n.desc}</p>
+            <p>نُشر بواسطة: MMS News</p>
+        `;
+        modal.style.display = "block";
+        document.body.style.overflow = "hidden";
+        
+        const contentEl = document.querySelector('.modal-content');
+        contentEl.onscroll = () => {
+            let scrolled = (contentEl.scrollTop / (contentEl.scrollHeight - contentEl.clientHeight)) * 100;
+            document.getElementById("progressBar").style.width = scrolled + "%";
+        };
+    }
 
-        <nav class="main-nav">
-            <div class="nav-container" id="navContainer">
-                <a href="#" class="nav-link active" onclick="filterNews('all')"><i class="fas fa-home"></i> الرئيسية</a>
-                <a href="#" class="nav-link" onclick="filterNews('breaking')"><i class="fas fa-bolt"></i> عاجل</a>
-                <a href="#" class="nav-link" onclick="filterNews('sports')"><i class="fas fa-futbol"></i> رياضة</a>
-                <a href="#" class="nav-link" onclick="filterNews('economy')"><i class="fas fa-chart-line"></i> اقتصاد</a>
-                <a href="#" class="nav-link" onclick="filterNews('tech')"><i class="fas fa-microchip"></i> تقنية</a>
-                <a href="#" class="nav-link" onclick="filterNews('arts')"><i class="fas fa-film"></i> فنون</a>
-            </div>
-        </nav>
-    </header>
+    function closeModal() {
+        document.getElementById('articleModal').style.display = "none";
+        document.body.style.overflow = "auto";
+    }
 
-    <section class="hero-section" id="heroSection">
-        </section>
+    function toggleTheme() {
+        const b = document.body;
+        b.setAttribute('data-theme', b.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    }
 
-    <section class="featured-section">
-        <div class="featured-grid">
-            <div class="featured-item" onclick="filterNews('sports')">
-                <div class="featured-icon"><i class="fas fa-futbol"></i></div>
-                <div class="featured-title">رياضة</div>
-                <div class="featured-count" id="sportsCount">جارٍ التحميل...</div>
-            </div>
-            <div class="featured-item" onclick="filterNews('economy')">
-                <div class="featured-icon"><i class="fas fa-chart-line"></i></div>
-                <div class="featured-title">اقتصاد</div>
-                <div class="featured-count" id="economyCount">جارٍ التحميل...</div>
-            </div>
-            <div class="featured-item" onclick="filterNews('tech')">
-                <div class="featured-icon"><i class="fas fa-microchip"></i></div>
-                <div class="featured-title">تقنية</div>
-                <div class="featured-count" id="techCount">جارٍ التحميل...</div>
-            </div>
-            <div class="featured-item" onclick="filterNews('arts')">
-                <div class="featured-icon"><i class="fas fa-film"></i></div>
-                <div class="featured-title">فنون</div>
-                <div class="featured-count" id="artsCount">جارٍ التحميل...</div>
-            </div>
-        </div>
-    </section>
+    // تشغيل كل شيء
+    updateLiveDate();
+    fetchLiveWeather();
+    fetchNews();
+</script>
 
-    <section class="section">
-        <div class="section-header">
-            <h2 class="section-title"><i class="fas fa-bolt"></i> أخبار عاجلة</h2>
-            <a href="#" class="view-all" onclick="filterNews('breaking')">عرض الكل <i class="fas fa-arrow-left"></i></a>
-        </div>
-        <div class="news-grid" id="breakingNews">
-            </div>
-    </section>
-
-    <section class="section">
-        <div class="section-header">
-            <h2 class="section-title"><i class="fas fa-futbol"></i> رياضة</h2>
-            <a href="#" class="view-all" onclick="filterNews('sports')">عرض الكل <i class="fas fa-arrow-left"></i></a>
-        </div>
-        <div class="news-grid" id="sportsNews">
-            </div>
-    </section>
-
-    <section class="section">
-        <div class="section-header">
-            <h2 class="section-title"><i class="fas fa-chart-line"></i> اقتصاد</h2>
-            <a href="#" class="view-all" onclick="filterNews('economy')">عرض الكل <i class="fas fa-arrow-left"></i></a>
-        </div>
-        <div class="news-grid" id="economyNews">
-            </div>
-    </section>
-
-    <section class="section">
-        <div class="section-header">
-            <h2 class="section-title"><i class="fas fa-microchip"></i> تقنية</h2>
-            <a href="#" class="view-all" onclick="filterNews('tech')">عرض الكل <i class="fas fa-arrow-left"></i></a>
-        </div>
-        <div class="news-grid" id="techNews">
-            </div>
-    </section>
-
-    <footer class="main-footer">
-        <div class="footer-content">
-            <div class="footer-brand">
-                <div class="logo-name" style="font-size: 2rem;">MMS News</div>
-                <p class="footer-desc">
-                    بوابتك الأولى للأخبار الموثوقة والمحتوى الإعلامي المتميز. 
-                    نقدم لك تغطية شاملة لأهم الأحداث المحلية والعالمية على مدار الساعة.
-                    جميع الأخبار من مصادر موثوقة مع إعادة صياغة إعلامية.
-                </p>
-                <div class="social-links">
-                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+</body>
+</html>
